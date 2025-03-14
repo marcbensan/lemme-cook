@@ -1,14 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { TagInput } from "emblor";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "./ui/command";
+import { useState } from "react";
+import { Button } from "./ui/button";
 
 interface Tag {
   id: string;
@@ -19,6 +13,10 @@ export default function AddIngredient() {
   const tags: Tag[] = [];
   const [exampleTags, setExampleTags] = useState<Tag[]>(tags);
   const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
+
+  function handleSubmit() {
+    console.log({ exampleTags });
+  }
 
   const sampleData: Tag[] = [
     { id: "1", text: "apple" },
@@ -124,35 +122,49 @@ export default function AddIngredient() {
   ];
 
   return (
-    <TagInput
-      tags={exampleTags}
-      setTags={(newTags) => {
-        setExampleTags(newTags);
-      }}
-      placeholder="Add a tag"
-      styleClasses={{
-        input: "w-full",
-        autoComplete: {
-          popoverTrigger: "pr-5",
-          popoverContent: "p-2 ml-[-24px]",
-          commandItem: "cursor-pointer hover:bg-gray-600",
-        },
-        tag: {
-          body: "flex items-center pl-4",
-        },
-        tagList: {
-          container: "my-4",
-        },
-      }}
-      activeTagIndex={activeTagIndex}
-      setActiveTagIndex={setActiveTagIndex}
-      inlineTags={false}
-      inputFieldPosition={"top"}
-      maxTags={10}
-      showCounter={true}
-      enableAutocomplete={true}
-      autocompleteOptions={sampleData}
-      restrictTagsToAutocompleteOptions={false}
-    />
+    <>
+      <TagInput
+        tags={exampleTags}
+        setTags={(newTags) => {
+          setExampleTags(newTags);
+        }}
+        placeholder="Add a tag"
+        styleClasses={{
+          input: "w-full outline-none",
+          autoComplete: {
+            popoverTrigger: "pr-5",
+            popoverContent: "p-2 ml-[-24px]",
+            commandItem: "cursor-pointer hover:bg-gray-600",
+          },
+          tag: {
+            body: "flex items-center pl-4 cursor-pointer",
+            closeButton: "cursor-pointer",
+          },
+          clearAllButton: "w-[30%] mb-3",
+          tagList: {
+            container: "my-4 flex flex-wrap",
+          },
+        }}
+        activeTagIndex={activeTagIndex}
+        setActiveTagIndex={setActiveTagIndex}
+        inlineTags={false}
+        inputFieldPosition={"top"}
+        maxTags={10}
+        showCounter={true}
+        enableAutocomplete={true}
+        autocompleteOptions={sampleData}
+        restrictTagsToAutocompleteOptions={false}
+      />
+      {exampleTags.length > 0 && (
+        <div className="flex items-end justify-end">
+          <Button
+            onClick={handleSubmit}
+            className="bg-zinc-700 text-white hover:bg-zinc-600 cursor-pointer"
+          >
+            Find Recipes
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
