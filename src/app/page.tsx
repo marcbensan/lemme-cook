@@ -1,5 +1,5 @@
-import RecipeCard from "@/components/recipe-card";
+import RecipesContainer from "@/components/recipes-container";
 
 export default function Home() {
-  return <RecipeCard/>;
+  return <RecipesContainer />;
 }

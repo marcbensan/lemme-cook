@@ -1,7 +1,7 @@
-import AppSidebar from "@/components/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import "@/app/globals.css";
+import AppSidebar from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         >
           <SidebarProvider>
             <AppSidebar />
-            <main>{children}</main>
+            <main className="mx-[10%] w-full">{children}</main>
           </SidebarProvider>
         </ThemeProvider>
       </body>
