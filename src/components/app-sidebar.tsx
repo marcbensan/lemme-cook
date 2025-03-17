@@ -13,19 +13,18 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import AddIngredient from "./add-ingredient";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import AddIngredient from "./add-ingredient";
 
 // Menu items.
 const items = [
@@ -62,7 +61,7 @@ export default function AppSidebar() {
       <SidebarContent>
         <SidebarGroup className="flex space-y-8">
           <SidebarGroupLabel className="text-white font-bold text-xl">
-            LemmeCook
+            <a href="/">LemmeCook</a>
           </SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
