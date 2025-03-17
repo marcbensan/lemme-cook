@@ -14,12 +14,12 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ name, description }: RecipeCardProps) {
   return (
-    <Card className="w-[300px]">
+    <Card className="cursor-pointer">
       <CardContent>
         <Image
           className="rounded-lg"
           alt="recipe-placeholder"
-          width={300}
+          width={1000}
           height={400}
           src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
         />

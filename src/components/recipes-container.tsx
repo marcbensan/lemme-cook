@@ -151,7 +151,7 @@ export default function RecipesContainer() {
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center gap-8">
       {sampleRecipes.map((recipe) => (
         <RecipeCard
           key={recipe.name}
