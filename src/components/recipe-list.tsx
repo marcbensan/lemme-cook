@@ -11,15 +11,14 @@ interface RecipesProps {
 
 export default function RecipeList({ recipes }: RecipesProps) {
   const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
-  const [searchInput, setSearchInput] = useState<string>("");
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchInput(e.target.value);
+    const input = e.target.value;
     const filtered = recipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(searchInput.toLocaleLowerCase())
+      recipe.name.toLowerCase().includes(input.toLocaleLowerCase())
     );
 
-    if (!searchInput) setFilteredRecipes(recipes);
+    if (input === "") setFilteredRecipes(recipes);
     else setFilteredRecipes(filtered);
   }
 

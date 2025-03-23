@@ -5,23 +5,21 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
+import { Recipe } from "@/lib/types/recipe";
 import Image from "next/image";
 
-interface RecipeCardProps {
-  name: string;
-  description: string;
-}
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const { name, description } = recipe;
 
-export default function RecipeCard({ name, description }: RecipeCardProps) {
   return (
     <Card className="cursor-pointer">
       <CardContent>
         <Image
-          className="rounded-lg"
+          className="rounded-lg object-cover w-200 h-80"
           alt="recipe-placeholder"
           width={1000}
           height={400}
-          src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+          src={recipe.imageUrl}
         />
       </CardContent>
       <CardFooter className="flex flex-col items-start space-y-4">

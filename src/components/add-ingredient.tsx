@@ -12,7 +12,7 @@ export default function AddIngredient() {
 
   useEffect(() => {
     async function getIngredients() {
-      const res = await fetch("http://52.15.240.217:8080/api/ingredients");
+      const res = await fetch(`${process.env.API_URL}/api/ingredients`);
       const data: Ingredient[] = await res.json();
       let modifiedData: Tag[] = [];
 
