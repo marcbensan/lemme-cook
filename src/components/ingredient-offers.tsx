@@ -48,7 +48,7 @@ export default function IngredientOffers() {
         />
         <ShopsTable />
       </div>
-      <hr className="my-12"/>
+      <hr className="mt-12" />
     </div>
   );
 }
