@@ -1,8 +1,11 @@
 "use client";
 
 import RecipesContainer from "@/components/recipes-container";
+import { ingredientsAtom, recipesAtom } from "@/lib/store";
 import { Recipe } from "@/lib/types/recipe";
-import { useState } from "react";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 interface RecipesProps {
@@ -10,25 +13,41 @@ interface RecipesProps {
 }
 
 export default function RecipeList({ recipes }: RecipesProps) {
-  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>(recipes);
+  const [filteredRecipes, setFilteredRecipes] = useAtom(recipesAtom);
+  const [userIngredients, setUserIngredients] = useAtom(ingredientsAtom);
 
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChangeh(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target.value;
     const filtered = recipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(input.toLocaleLowerCase())
+      recipe.name.toLowerCase().includes(input.toLowerCase())
     );
 
     if (input === "") setFilteredRecipes(recipes);
     else setFilteredRecipes(filtered);
   }
 
+  function handleRefresh() {
+    setFilteredRecipes(recipes);
+    setUserIngredients([]);
+  }
+
+  useEffect(() => {
+    setFilteredRecipes(filteredRecipes.length > 0 ? filteredRecipes : recipes);
+    console.log(filteredRecipes);
+  }, [filteredRecipes, setFilteredRecipes]);
+
   return (
     <div className="flex flex-col min-w-300 w-full px-12">
-      <Input
-        placeholder="Search for a recipe"
-        onChange={handleSearch}
-        className="my-4"
-      />
+      <div className="flex flex-row space-x-2 items-center">
+        <Input
+          placeholder="Search for a recipe"
+          onChange={handleChangeh}
+          className="my-4"
+        />
+        <Button variant="secondary" onClick={handleRefresh}>
+          Refresh
+        </Button>
+      </div>
       <hr />
       {filteredRecipes.length > 0 ? (
         <RecipesContainer sampleRecipes={filteredRecipes} />

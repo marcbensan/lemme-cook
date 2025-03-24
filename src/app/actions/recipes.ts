@@ -13,7 +13,6 @@ export async function getRecipes() {
 
 export async function getRecipe(recipeId: string) {
   const res = await fetch(`${API_URL}/api/recipes/${recipeId}`);
-  console.log(res);
 
   if (!res.ok) {
     return { message: "No recipe found" };

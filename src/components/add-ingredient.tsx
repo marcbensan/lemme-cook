@@ -1,11 +1,16 @@
 "use client";
 
+import { ingredientsAtom, recipesAtom } from "@/lib/store";
 import { Ingredient } from "@/lib/types/ingredient";
+import { Recipe } from "@/lib/types/recipe";
 import { Tag, TagInput } from "emblor";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 export default function AddIngredient() {
+  const [userIngredients, setUserIngredients] = useAtom<Tag[]>(ingredientsAtom);
+  const [filteredRecipes, setFilteredRecipes] = useAtom<Recipe[]>(recipesAtom);
   const [ingredientTags, setIngredientTags] = useState<Tag[]>([]);
   const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
   const [options, setOptions] = useState<Tag[]>([]);
@@ -28,8 +33,26 @@ export default function AddIngredient() {
     getIngredients();
   }, []);
 
-  function handleSubmit() {
-    console.log(ingredientTags);
+  async function handleSubmit() {
+    setUserIngredients(ingredientTags);
+
+    const params = new URLSearchParams();
+    ingredientTags.forEach((tag) => {
+      params.append("", tag.id);
+    });
+
+    let ingredientIds: string[] = [];
+
+    ingredientTags.forEach((ingredient) => {
+      ingredientIds.push(ingredient.id);
+    });
+
+    const res = await fetch(
+      `${process.env.API_URL}/api/recipes/recommend?ingredientIds=${ingredientIds}`
+    );
+
+    const filteredRecipeData = await res.json();
+    setFilteredRecipes(filteredRecipeData);
   }
 
   return (
