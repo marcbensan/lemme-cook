@@ -8,3 +8,12 @@ export async function getIngredients() {
 
   return await res.json();
 }
+
+export async function getIngredient(id: number) {
+  const res = await fetch(
+    `${URL}/api/ingredients/store?missingIngredientList=${id}`
+  );
+  if (!res.ok) return { message: "No ingredient found" };
+
+  return await res.json();
+}

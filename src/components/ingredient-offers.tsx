@@ -25,18 +25,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { GroceryStore } from "@/lib/types/grocery";
 
-interface IngredientOffer {
-  price: number;
-  store: string;
-  distance: number;
-  address: string;
-}
-
-export default function IngredientOffers() {
+export default function IngredientOffers({
+  groceryStores,
+}: {
+  groceryStores: GroceryStore[];
+}) {
   return (
     <div className="py-12 px-16 w-full">
-      <p className="font-bold text-7xl">TOMATO SAUCE</p>
+      <p className="font-bold text-7xl">{groceryStores[0].ingredientName}</p>
       <hr className="my-12 w-full" />
       <div className="flex flex-row space-x-8">
         <Image
@@ -46,65 +44,14 @@ export default function IngredientOffers() {
           src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
           className="rounded-lg w-1/2"
         />
-        <ShopsTable />
+        <ShopsTable groceryStores={groceryStores} />
       </div>
       <hr className="mt-12" />
     </div>
   );
 }
 
-const sampleIngredientOffers: IngredientOffer[] = [
-  {
-    price: 2.99,
-    store: "Metro",
-    distance: 1.2,
-    address: "123 Main St, City, State",
-  },
-  {
-    price: 2.49,
-    store: "Food Basics",
-    distance: 2.5,
-    address: "456 Elm St, City, State",
-  },
-  {
-    price: 2.79,
-    store: "NoFrills",
-    distance: 3.0,
-    address: "789 Oak St, City, State",
-  },
-  {
-    price: 3.19,
-    store: "Walmart",
-    distance: 4.1,
-    address: "101 Pine St, City, State",
-  },
-  {
-    price: 3.49,
-    store: "Loblaws",
-    distance: 5.2,
-    address: "202 Maple St, City, State",
-  },
-  {
-    price: 2.89,
-    store: "FreshCo",
-    distance: 2.8,
-    address: "303 Birch St, City, State",
-  },
-  {
-    price: 3.29,
-    store: "Costco",
-    distance: 6.3,
-    address: "404 Cedar St, City, State",
-  },
-  {
-    price: 3.59,
-    store: "Zehrs",
-    distance: 7.4,
-    address: "505 Spruce St, City, State",
-  },
-];
-
-const columns: ColumnDef<IngredientOffer>[] = [
+const columns: ColumnDef<GroceryStore>[] = [
   {
     accessorKey: "price",
     header: ({ column }) => (
@@ -130,14 +77,12 @@ const columns: ColumnDef<IngredientOffer>[] = [
     },
   },
   {
-    accessorKey: "store",
+    accessorKey: "name",
     header: "Store",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("store")}</div>
-    ),
+    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
   },
   {
-    accessorKey: "distance",
+    accessorKey: "stock", // This will change to distance later
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -150,7 +95,7 @@ const columns: ColumnDef<IngredientOffer>[] = [
     ),
     cell: ({ row }) => (
       <div className="capitalize text-center my-4">
-        {row.getValue("distance")} km
+        {row.getValue("stock")} km
       </div>
     ),
   },
@@ -163,7 +108,7 @@ const columns: ColumnDef<IngredientOffer>[] = [
   },
 ];
 
-function ShopsTable() {
+function ShopsTable({ groceryStores }: { groceryStores: GroceryStore[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -173,7 +118,7 @@ function ShopsTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data: sampleIngredientOffers,
+    data: groceryStores,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

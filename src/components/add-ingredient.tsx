@@ -62,7 +62,7 @@ export default function AddIngredient() {
         setTags={(newTags) => {
           setIngredientTags(newTags);
         }}
-        placeholder="Add a tag"
+        placeholder="Add your ingredients"
         styleClasses={{
           input: "w-full outline-none",
           autoComplete: {

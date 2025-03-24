@@ -1,6 +1,9 @@
 "use client";
 
+import { ingredientsAtom } from "@/lib/store";
+import { Ingredient } from "@/lib/types/ingredient";
 import { Recipe } from "@/lib/types/recipe";
+import { useAtom } from "jotai";
 import {
   ClockIcon,
   EggIcon,
@@ -14,6 +17,10 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
 export default function RecipeDetails({ recipe }: { recipe: Recipe }) {
+  const [userIngredients, setUserIngredients] = useAtom(ingredientsAtom);
+  const [missingIngredients, setMissingIngredients] = useState<Ingredient[]>(
+    []
+  );
   const [instructions, setInstructions] = useState<string[]>([]);
 
   useEffect(() => {
@@ -22,6 +29,20 @@ export default function RecipeDetails({ recipe }: { recipe: Recipe }) {
       setInstructions(parsedData);
     }
 
+    function findMissingIngredients() {
+      console.log(userIngredients);
+      const missing = recipe.requiredIngredients.filter(
+        (ingredient) =>
+          !userIngredients.some(
+            (userIngredient) => userIngredient.id === ingredient.id.toString()
+          )
+      );
+
+      setMissingIngredients(missing);
+      console.log("Missing Ingredients:", missing);
+    }
+
+    findMissingIngredients();
     parseInstructions();
   }, []);
   return (
@@ -80,12 +101,25 @@ export default function RecipeDetails({ recipe }: { recipe: Recipe }) {
           ))}
         </ol>
       </div>
-      <hr className="my-12" />
-      <p className="font-semibold text-5xl mb-12">INGREDIENTS YOU DON'T HAVE</p>
-      <div className="space-y-8">
-        <p className="text-xl">Find the best deals for these ingredients</p>
-        <Link href="/ingredient/123">Tomato Sauce</Link>
-      </div>
+
+      {missingIngredients.length > 0 && (
+        <>
+          <hr className="my-12" />
+          <p className="font-semibold text-5xl mb-12">
+            INGREDIENTS YOU DON'T HAVE
+          </p>
+          <div className="space-y-8">
+            <p className="text-xl">Find the best deals for these ingredients</p>
+            {missingIngredients.map((ingredient) => (
+              <div key={ingredient.id}>
+                <Link href={`/ingredient/${ingredient.id}`}>
+                  {ingredient.name}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }
