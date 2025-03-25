@@ -1,5 +1,7 @@
 import "@/app/globals.css";
+import AppSidebar from "@/components/app-sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default async function Layout({
   children,
@@ -15,7 +17,10 @@ export default async function Layout({
           enableSystem
           disableTransitionOnChange
         >
-          <main>{children}</main>
+          <SidebarProvider>
+            <AppSidebar />
+            <main>{children}</main>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

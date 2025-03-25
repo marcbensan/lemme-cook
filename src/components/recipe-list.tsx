@@ -4,7 +4,7 @@ import RecipesContainer from "@/components/recipes-container";
 import { ingredientsAtom, recipesAtom } from "@/lib/store";
 import { Recipe } from "@/lib/types/recipe";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -15,9 +15,11 @@ interface RecipesProps {
 export default function RecipeList({ recipes }: RecipesProps) {
   const [filteredRecipes, setFilteredRecipes] = useAtom(recipesAtom);
   const [userIngredients, setUserIngredients] = useAtom(ingredientsAtom);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   function handleChangeh(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target.value;
+    setSearchInput(input);
     const filtered = recipes.filter((recipe) =>
       recipe.name.toLowerCase().includes(input.toLowerCase())
     );
@@ -32,8 +34,11 @@ export default function RecipeList({ recipes }: RecipesProps) {
   }
 
   useEffect(() => {
-    setFilteredRecipes(filteredRecipes.length > 0 ? filteredRecipes : recipes);
-    console.log(filteredRecipes);
+    if (filteredRecipes.length < 1 && !searchInput) {
+      setFilteredRecipes(
+        filteredRecipes.length > 0 ? filteredRecipes : recipes
+      );
+    }
   }, [filteredRecipes, setFilteredRecipes]);
 
   return (
