@@ -17,7 +17,7 @@ import { useActionState } from "react";
 export default function SignUp() {
   const [error, action, isLoading] = useActionState(createUser, "");
   return (
-    <form action={action}>
+    <form action={action} className="z-10">
       <Card className="w-[450px] px-4">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">

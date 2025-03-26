@@ -36,7 +36,7 @@ export default function AppSidebar() {
       <SidebarContent>
         <SidebarGroup className="flex space-y-8">
           <SidebarGroupLabel className="text-white font-bold text-xl">
-            <a href="/">LemmeCook</a>
+            <a href="/recipe">LemmeCook</a>
           </SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>

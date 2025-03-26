@@ -5,16 +5,14 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("accessToken");
   const isAuthenticated = !!token;
 
-  console.log(isAuthenticated);
-
-  if (!isAuthenticated && !url.pathname.startsWith("/signin")) {
-    url.pathname = "/signin";
+  if (!isAuthenticated && url.pathname !== "/") {
+    url.pathname = "/";
     return NextResponse.redirect(url);
   }
 }
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|signin|signup).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|signin|signup|^$).*)",
   ],
 };

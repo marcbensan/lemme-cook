@@ -26,22 +26,26 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GroceryStore } from "@/lib/types/grocery";
+import { useEffect } from "react";
+import { Ingredient } from "@/lib/types/ingredient";
 
 export default function IngredientOffers({
   groceryStores,
+  ingredient,
 }: {
   groceryStores: GroceryStore[];
+  ingredient: Ingredient;
 }) {
   return (
     <div className="py-12 px-16 w-full">
-      <p className="font-bold text-7xl">{groceryStores[0].ingredientName}</p>
+      <p className="font-bold text-7xl">{ingredient.name}</p>
       <hr className="my-12 w-full" />
       <div className="flex flex-row space-x-8">
         <Image
           width={4000}
           height={2000}
           alt="recipe-img"
-          src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+          src={ingredient.imageUrl}
           className="rounded-lg w-1/2"
         />
         <ShopsTable groceryStores={groceryStores} />

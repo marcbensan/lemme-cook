@@ -19,8 +19,8 @@ export default function SignIn() {
   const [error, action, isLoading] = useActionState(signInUser, "");
 
   return (
-    <form action={action}>
-      <Card className="w-[400px] ">
+    <form className="z-10" action={action}>
+      <Card className="w-[400px]">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">LemmeCook</CardTitle>
           <CardDescription>

@@ -1,4 +1,4 @@
-import { getIngredient } from "@/app/actions/ingredients";
+import { getIngredient, getMissingIngredient } from "@/app/actions/ingredients";
 import GroceryMap from "@/components/grocery-map";
 import IngredientOffers from "@/components/ingredient-offers";
 import PreviousPage from "@/components/previous-page";
@@ -9,11 +9,12 @@ export default async function IngredientPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const groceryStores = await getIngredient(id);
+  const groceryStores = await getMissingIngredient(id);
+  const ingredient = await getIngredient(id);
   return (
     <>
       <PreviousPage />
-      <IngredientOffers groceryStores={groceryStores} />
+      <IngredientOffers groceryStores={groceryStores} ingredient={ingredient} />
       <div className="px-16 pb-24 flex flex-col space-y-12">
         <p className="font-bold text-5xl">STORE LOCATION</p>
         <GroceryMap />

@@ -27,7 +27,7 @@ export async function signInUser(previousState: string, formData: FormData) {
   cookie.set("accessToken", data.accessToken);
   cookie.set("refreshToken", data.refreshToken);
 
-  redirect("/");
+  redirect("/recipe");
 }
 
 export async function createUser(previousState: string, formData: FormData) {
