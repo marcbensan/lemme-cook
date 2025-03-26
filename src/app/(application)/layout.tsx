@@ -9,20 +9,16 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <SidebarProvider>
-            <AppSidebar />
-            <main>{children}</main>
-          </SidebarProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <SidebarProvider>
+        <AppSidebar />
+        <main>{children}</main>
+      </SidebarProvider>
+    </ThemeProvider>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronUp, User2 } from "lucide-react";
 
 import {
@@ -10,6 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useRouter } from "next/navigation";
 import AddIngredient from "./add-ingredient";
 import {
   DropdownMenu,
@@ -19,6 +22,15 @@ import {
 } from "./ui/dropdown-menu";
 
 export default function AppSidebar() {
+  const router = useRouter();
+  const handleSignOut = () => {
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    router.push("/signin");
+  };
   return (
     <Sidebar>
       <SidebarContent>
@@ -54,7 +66,7 @@ export default function AppSidebar() {
                   <span>Billing</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <span>Sign out</span>
+                  <button onClick={handleSignOut}>Sign out</button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

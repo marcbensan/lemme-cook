@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function signInUser(previousState: string, formData: FormData) {
@@ -22,7 +23,11 @@ export async function signInUser(previousState: string, formData: FormData) {
     return data;
   }
 
-  return data;
+  const cookie = await cookies();
+  cookie.set("accessToken", data.accessToken);
+  cookie.set("refreshToken", data.refreshToken);
+
+  redirect("/");
 }
 
 export async function createUser(previousState: string, formData: FormData) {
