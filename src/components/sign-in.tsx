@@ -22,11 +22,9 @@ export default function SignIn() {
     <form action={action}>
       <Card className="w-[400px] ">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">
-            Sign In to LemmeCook
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">LemmeCook</CardTitle>
           <CardDescription>
-            Enter your credentials to access the application
+            Sign in by entering your credentials to access our many recipes
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -38,7 +36,7 @@ export default function SignIn() {
               <Input
                 id="email"
                 name="email"
-                placeholder="Enter your Email"
+                placeholder="ex. john@email.com"
                 required
               />
             </div>

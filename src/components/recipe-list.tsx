@@ -1,10 +1,10 @@
 "use client";
 
-import RecipesContainer from "@/components/recipes-container";
 import { ingredientsAtom, recipesAtom } from "@/lib/store";
 import { Recipe } from "@/lib/types/recipe";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import RecipesContainer from "./recipes-container";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -42,7 +42,7 @@ export default function RecipeList({ recipes }: RecipesProps) {
   }, [filteredRecipes, setFilteredRecipes]);
 
   return (
-    <div className="flex flex-col min-w-300 w-full px-12">
+    <div className="flex flex-col w-full px-12">
       <div className="flex flex-row space-x-2 items-center">
         <Input
           placeholder="Search for a recipe"
@@ -57,7 +57,7 @@ export default function RecipeList({ recipes }: RecipesProps) {
       {filteredRecipes.length > 0 ? (
         <RecipesContainer sampleRecipes={filteredRecipes} />
       ) : (
-        <div className="w-full flex items-center justify-center my-24">
+        <div className="w-screen flex items-center justify-center my-24">
           <p>No recipes found</p>
         </div>
       )}

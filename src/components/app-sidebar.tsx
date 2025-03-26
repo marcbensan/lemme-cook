@@ -23,14 +23,14 @@ import {
 
 export default function AppSidebar() {
   const router = useRouter();
-  const handleSignOut = () => {
-    document.cookie.split(";").forEach(function (c) {
+  function handleSignOut() {
+    document.cookie.split(";").forEach((c) => {
       document.cookie = c
         .replace(/^ +/, "")
         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
     router.push("/signin");
-  };
+  }
   return (
     <Sidebar>
       <SidebarContent>
@@ -50,15 +50,12 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
+                <SidebarMenuButton className="cursor-pointer">
                   <User2 /> Username
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
+              <DropdownMenuContent side="top" className="w-[240px]">
                 <DropdownMenuItem>
                   <span>Account</span>
                 </DropdownMenuItem>
@@ -66,7 +63,12 @@ export default function AppSidebar() {
                   <span>Billing</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <button onClick={handleSignOut}>Sign out</button>
+                  <button
+                    className="w-full text-start cursor-pointer"
+                    onClick={handleSignOut}
+                  >
+                    Sign out
+                  </button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -66,7 +66,7 @@ export default function AddIngredient() {
         styleClasses={{
           input: "w-full outline-none",
           autoComplete: {
-            popoverTrigger: "pr-5",
+            popoverTrigger: "pr-5 cursor-pointer",
             popoverContent: "p-2 ml-[-24px]",
             commandItem: "cursor-pointer hover:bg-gray-600",
           },
