@@ -13,7 +13,7 @@ export default async function RecipeDetailsPage({
   const recipe: Recipe = await getRecipe(id);
   return (
     <>
-      <PreviousPage route={"/"} />
+      <PreviousPage route={"/recipe"} />
       <RecipeDetails recipe={recipe} />
     </>
   );
