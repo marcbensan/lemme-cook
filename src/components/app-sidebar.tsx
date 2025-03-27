@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { ChevronUp, User2 } from "lucide-react";
+import { ChevronUp, User2 } from 'lucide-react'
 
 import {
   Sidebar,
@@ -11,34 +11,34 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
-import AddIngredient from "./add-ingredient";
+} from '@/components/ui/sidebar'
+import { useRouter } from 'next/navigation'
+import { ReactNode } from 'react'
+import AddIngredient from './add-ingredient'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from './ui/dropdown-menu'
 
 export default function AppSidebar({ children }: { children: ReactNode }) {
-  const router = useRouter();
+  const router = useRouter()
   function handleSignOut() {
-    document.cookie.split(";").forEach((c) => {
+    document.cookie.split(';').forEach((c) => {
       document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    });
-    router.push("/signin");
+        .replace(/^ +/, '')
+        .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
+    })
+    router.push('/signin')
   }
   return (
-    <div className="flex flex-row">
+    <div className='flex w-full flex-row'>
       <Sidebar>
         <SidebarContent>
-          <SidebarGroup className="flex space-y-8">
-            <SidebarGroupLabel className="text-white font-bold text-xl">
-              <a href="/recipe">LemmeCook</a>
+          <SidebarGroup className='flex space-y-8'>
+            <SidebarGroupLabel className='text-white font-bold text-xl'>
+              <a href='/recipe'>LemmeCook</a>
             </SidebarGroupLabel>
             <SidebarMenu>
               <SidebarMenuItem>
@@ -52,12 +52,12 @@ export default function AppSidebar({ children }: { children: ReactNode }) {
             <SidebarMenuItem>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton className="cursor-pointer">
+                  <SidebarMenuButton className='cursor-pointer'>
                     <User2 /> Username
-                    <ChevronUp className="ml-auto" />
+                    <ChevronUp className='ml-auto' />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="top" className="w-[240px]">
+                <DropdownMenuContent side='top' className='w-[240px]'>
                   <DropdownMenuItem>
                     <span>Account</span>
                   </DropdownMenuItem>
@@ -66,7 +66,7 @@ export default function AppSidebar({ children }: { children: ReactNode }) {
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <button
-                      className="w-full text-start cursor-pointer"
+                      className='w-full text-start cursor-pointer'
                       onClick={handleSignOut}
                     >
                       Sign out
@@ -78,7 +78,7 @@ export default function AppSidebar({ children }: { children: ReactNode }) {
           </SidebarMenu>
         </SidebarFooter>
       </Sidebar>
-      {children}
+      <div className='w-full'>{children}</div>
     </div>
-  );
+  )
 }
