@@ -1,57 +1,59 @@
-"use server";
+'use server'
 
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export async function signInUser(previousState: string, formData: FormData) {
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const email = formData.get('email')
+  const password = formData.get('password')
 
-  console.log(JSON.stringify({ email, password }));
+  console.log(JSON.stringify({ email, password }))
 
   const res = await fetch(`${process.env.API_URL}/api/user/login`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  });
+  })
 
-  const data = await res.json();
+  const data = await res.json()
 
   if (!res.ok) {
-    return data;
+    return data
   }
 
-  const cookie = await cookies();
-  cookie.set("accessToken", data.accessToken);
-  cookie.set("refreshToken", data.refreshToken);
+  const cookie = await cookies()
+  cookie.set('accessToken', data.accessToken)
+  cookie.set('refreshToken', data.refreshToken)
 
-  redirect("/recipe");
+  console.log(cookie)
+
+  redirect('/recipe')
 }
 
 export async function createUser(previousState: string, formData: FormData) {
-  console.log(formData);
-  const username = formData.get("username");
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const role = formData.get("role");
+  console.log(formData)
+  const username = formData.get('username')
+  const email = formData.get('email')
+  const password = formData.get('password')
+  const role = formData.get('role')
 
-  console.log(JSON.stringify({ username, email, password, role }));
+  console.log(JSON.stringify({ username, email, password, role }))
 
   const res = await fetch(`${process.env.API_URL}/api/user/signup`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ username, email, password, role }),
-  });
+  })
 
-  const data = await res.json();
+  const data = await res.json()
 
   if (!res.ok) {
-    return data;
+    return data
   }
 
-  redirect("/signin");
+  redirect('/signin')
 }
