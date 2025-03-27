@@ -46,7 +46,7 @@ export default function RecipeDetails({ recipe }: { recipe: Recipe }) {
     parseInstructions();
   }, []);
   return (
-    <div className="py-12 px-16">
+    <div className="py-6 mx-16">
       <p className="font-bold text-7xl">{recipe.name}</p>
       <hr className="my-12" />
       <div className="flex flex-row space-x-24">

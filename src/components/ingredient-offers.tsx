@@ -26,7 +26,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { GroceryStore } from "@/lib/types/grocery";
-import { useEffect } from "react";
 import { Ingredient } from "@/lib/types/ingredient";
 
 export default function IngredientOffers({
@@ -37,7 +36,7 @@ export default function IngredientOffers({
   ingredient: Ingredient;
 }) {
   return (
-    <div className="py-12 px-16 w-full">
+    <div className="py-6 px-16 w-full">
       <p className="font-bold text-7xl">{ingredient.name}</p>
       <hr className="my-12 w-full" />
       <div className="flex flex-row space-x-8">
@@ -46,7 +45,7 @@ export default function IngredientOffers({
           height={2000}
           alt="recipe-img"
           src={ingredient.imageUrl}
-          className="rounded-lg w-1/2"
+          className="rounded-lg w-1/3"
         />
         <ShopsTable groceryStores={groceryStores} />
       </div>

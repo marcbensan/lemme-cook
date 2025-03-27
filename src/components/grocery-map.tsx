@@ -52,7 +52,7 @@ export default function GroceryMap() {
       <div
         id="map-container"
         ref={mapContainerRef}
-        style={{ width: "100%", height: "400px" }}
+        style={{ width: "100%", height: "700px" }}
       />
     </>
   );

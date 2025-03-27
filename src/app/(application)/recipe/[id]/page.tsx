@@ -12,9 +12,9 @@ export default async function RecipeDetailsPage({
 
   const recipe: Recipe = await getRecipe(id);
   return (
-    <>
+    <div className="flex flex-col items-start">
       <PreviousPage route={"/recipe"} />
       <RecipeDetails recipe={recipe} />
-    </>
+    </div>
   );
 }

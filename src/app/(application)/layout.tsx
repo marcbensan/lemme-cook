@@ -16,8 +16,7 @@ export default async function Layout({
       disableTransitionOnChange
     >
       <SidebarProvider>
-        <AppSidebar />
-        <main>{children}</main>
+        <AppSidebar>{children}</AppSidebar>
       </SidebarProvider>
     </ThemeProvider>
   );
